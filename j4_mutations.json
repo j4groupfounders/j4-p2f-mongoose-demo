@@ -1,0 +1,32 @@
+[
+  {
+    "name": "blank article title accepted",
+    "file": "app/models/article.js",
+    "old": "ArticleSchema.path('title').required(true,",
+    "new": "ArticleSchema.path('title').required(false,"
+  },
+  {
+    "name": "blank signup email accepted",
+    "file": "app/models/user.js",
+    "old": "return email.length;",
+    "new": "return true;"
+  },
+  {
+    "name": "blank signup name accepted",
+    "file": "app/models/user.js",
+    "old": "return name.length;",
+    "new": "return true;"
+  },
+  {
+    "name": "unauthenticated redirect destination wrong",
+    "file": "config/middlewares/authorization.js",
+    "old": "res.redirect('/login');",
+    "new": "res.redirect('/signup');"
+  },
+  {
+    "name": "missing route returns success",
+    "file": "config/routes.js",
+    "old": "res.status(404).render('404', payload);",
+    "new": "res.status(200).render('404', payload);"
+  }
+]

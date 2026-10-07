@@ -54,7 +54,7 @@ try:
   jars=[f for f in P.glob('target/*.jar') if not f.name.endswith('.original')];assert len(jars)==1
   cmd=['java','-jar',str(jars[0]),'--server.port=8080']
  elif n=='laravelreal':cmd=['php','artisan','serve','--host=127.0.0.1','--port=8080']
- else:cmd=['node','server.js']
+ else:cmd=['node','-e',"require('./server').listen(8080, '127.0.0.1')"]
  env=os.environ.copy();env['PORT']='8080'
  with (E/'server.log').open('w') as log:
   server=subprocess.Popen(cmd,stdout=log,stderr=subprocess.STDOUT,env=env)
