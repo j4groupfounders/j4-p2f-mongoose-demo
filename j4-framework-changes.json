@@ -1,0 +1,27 @@
+[
+  {
+    "before": {
+      "route": "/articles/new",
+      "status": 302,
+      "type": "text/html; charset=utf-8",
+      "redirect": "/login",
+      "hash": "ee8425a25b3a83e941c57037398b687cd128386bdeb0951ab907765e9495fb8a",
+      "body": "<p>Found. Redirecting to <a href=\"/login\">/login</a></p>"
+    },
+    "after": {
+      "route": "/articles/new",
+      "status": 302,
+      "type": "text/html; charset=utf-8",
+      "redirect": "/login",
+      "hash": "778a92858dd05faca43b0dea43460e2e19c95c3ad7080d6fc518010fbf2e9d64",
+      "body": "<p>Found. Redirecting to /login</p>"
+    },
+    "classification": "expected-framework",
+    "decision": "kept",
+    "cause": "Express 5 res.redirect HTML response removes the hyperlink; 302 status, content type and /login Location are identical. Exact single-route before/after bodies only, not blanket normalization.",
+    "source": {
+      "4.19.2": "res.redirect = function redirect(url) {\n  var address = url;\n  var body;\n  var status = 302;\n\n  // allow status / url\n  if (arguments.length === 2) {\n    if (typeof arguments[0] === 'number') {\n      status = arguments[0];\n      address = arguments[1];\n    } else {\n      deprecate('res.redirect(url, status): Use res.redirect(status, url) instead');\n      status = arguments[1];\n    }\n  }\n\n  // Set location header\n  address = this.location(address).get('Location');\n\n  // Support text/{plain,html} by default\n  this.format({\n    text: function(){\n      body = statuses.message[status] + '. Redirecting to ' + address\n    },\n\n    html: function(){\n      var u = escapeHtml(address);\n      body = '<p>' + statuses.message[status] + '. Redirecting to <a href=\"' + u + '\">' + u + '</a></p>'\n    },\n\n    default: function(){\n      body = '';\n    }\n  });\n\n  // Respond\n  this.statusCode = status;\n  this.set('Content-Length', Buffer.byteLength(body));\n\n  if (this.req.method === 'HEAD') {\n    this.end();\n  } else {\n    this.end(body);\n  }\n};",
+      "5.2.1": "res.redirect = function redirect(url) {\n  var address = url;\n  var body;\n  var status = 302;\n\n  // allow status / url\n  if (arguments.length === 2) {\n    status = arguments[0]\n    address = arguments[1]\n  }\n\n  if (!address) {\n    deprecate('Provide a url argument');\n  }\n\n  if (typeof address !== 'string') {\n    deprecate('Url must be a string');\n  }\n\n  if (typeof status !== 'number') {\n    deprecate('Status must be a number');\n  }\n\n  // Set location header\n  address = this.location(address).get('Location');\n\n  // Support text/{plain,html} by default\n  this.format({\n    text: function(){\n      body = statuses.message[status] + '. Redirecting to ' + address\n    },\n\n    html: function(){\n      var u = escapeHtml(address);\n      body = '<p>' + statuses.message[status] + '. Redirecting to ' + u + '</p>'\n    },\n\n    default: function(){\n      body = '';\n    }\n  });\n\n  // Respond\n  this.status(status);\n  this.set('Content-Length', Buffer.byteLength(body));\n\n  if (this.req.method === 'HEAD') {\n    this.end();\n  } else {\n    this.end(body);\n  }\n};"
+    }
+  }
+]

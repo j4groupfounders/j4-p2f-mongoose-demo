@@ -43,7 +43,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24.7.0'
-      - run: npm install --package-lock-only --ignore-scripts
       - run: npm ci
       - name: Preserve resolved lock
         run: |

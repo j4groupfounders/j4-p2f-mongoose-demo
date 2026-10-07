@@ -68,7 +68,12 @@ try:
    assert ready,'Server did not boot'
    surface=snapshots();again=snapshots();assert surface==again,'Unstable baseline surface'
   finally:server.terminate();server.wait(timeout=20)
- (E/'surface.json').write_text(json.dumps(surface,indent=2));http_detected=(P/'surface.json').exists() and surface!=json.loads((P/'surface.json').read_text());result['http_detected']=http_detected
+ (E/'surface.json').write_text(json.dumps(surface,indent=2));expected=json.loads((P/'surface.json').read_text()) if (P/'surface.json').exists() else surface
+ if (P/'j4-framework-changes.json').exists():
+  for change in json.loads((P/'j4-framework-changes.json').read_text()):
+   assert change['before'] in expected,'Framework classification baseline drift'
+   expected[expected.index(change['before'])]=change['after']
+ http_detected=surface!=expected;result['http_detected']=http_detected
  result['combined_detected']=detected or http_detected
  if n=='laravelreal':(E/'composer.lock').write_bytes((P/'composer.lock').read_bytes())
  if n=='mongoose-demo':(E/'package-lock.json').write_bytes((P/'package-lock.json').read_bytes())
