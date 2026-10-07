@@ -1,0 +1,18 @@
+{
+  "ids": [
+    "Clean up",
+    "Create user",
+    "POST /articles - when not logged in - should redirect to /login",
+    "User login",
+    "POST /articles - invalid form - should respond with error",
+    "POST /articles - valid form - should redirect to the new article page",
+    "Clean up",
+    "Clean up",
+    "no email - should respond with errors",
+    "no name - should respond with errors",
+    "valid signup - should redirect to /",
+    "Clean up"
+  ],
+  "assertions": 11,
+  "skips": []
+}
