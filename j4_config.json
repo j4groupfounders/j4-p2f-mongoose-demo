@@ -1,0 +1,19 @@
+{
+  "name": "mongoose-demo",
+  "stack": "Express",
+  "upstream": "madhums/node-express-mongoose-demo",
+  "old": "4.19.2",
+  "new": "5.2.1",
+  "reason": "Express 5 changes route parsing, request/response APIs and promise-error handling; existing authenticated multipart CRUD tests exercise middleware compatibility.",
+  "routes": [
+    "/",
+    "/login",
+    "/signup",
+    "/articles",
+    "/articles/new",
+    "/j4-missing"
+  ],
+  "id": "p2-16-mongoose-demo",
+  "repo": "j4groupfounders/j4-p2f-mongoose-demo",
+  "source": "8a134ab5deeef553d6de51d91d4ed8ee378acace"
+}
