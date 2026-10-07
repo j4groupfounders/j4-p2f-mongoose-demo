@@ -21,6 +21,14 @@ jobs:
         ports: ['27017:27017']
     env:
       NODE_ENV: test
+      GOOGLE_CLIENTID: j4-placeholder-not-a-credential
+      GOOGLE_SECRET: j4-placeholder-not-a-credential
+      GITHUB_CLIENTID: j4-placeholder-not-a-credential
+      GITHUB_SECRET: j4-placeholder-not-a-credential
+      TWITTER_CLIENTID: j4-placeholder-not-a-credential
+      TWITTER_SECRET: j4-placeholder-not-a-credential
+      LINKEDIN_CLIENTID: j4-placeholder-not-a-credential
+      LINKEDIN_SECRET: j4-placeholder-not-a-credential
       MONGODB_URL: mongodb://127.0.0.1/noobjs_test
       APP_ENV: testing
       APP_DEBUG: 'false'
